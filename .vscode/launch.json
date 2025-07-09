@@ -1,0 +1,73 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "OCR Test",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "tests.test_ocr",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true,
+        },
+        {
+            "name": "Indexing Test",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "tests.test_index",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true,
+        },
+        {
+            "name": "Index Search Test",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "tests.test_search",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true,
+        },
+        {
+            "name": "LLM Test",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "tests.test_llm",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "justMyCode": true,
+        },
+        {
+            "name": "Debug FastAPI (direct run)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "api.main:app",
+                "--host",
+                "127.0.0.1",
+                "--port",
+                "8000",
+                "--reload"
+            ],
+            "jinja": true
+        },
+        {
+            "name": "Debug FastAPI (no reload)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "api.main:app",
+                "--host",
+                "127.0.0.1",
+                "--port",
+                "8000"
+            ],
+            "jinja": true
+        }
+    ]
+}
