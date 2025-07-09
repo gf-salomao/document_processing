@@ -22,6 +22,7 @@ An end-to-end FastAPI application to extract structured information from unstruc
   },
   "processing_time": "1.25s"
 }
+```
 
 ---
 
