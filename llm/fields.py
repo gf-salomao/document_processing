@@ -1,0 +1,72 @@
+"""Field per Type dict for LLM Extraction"""
+
+fields_per_type = {
+    "specification": [
+        "specification_id",
+        "title",
+        "version",
+        "date",
+        "author",
+    ],
+    "email": ["from", "to", "date", "subject", "body"],
+    "advertisement": [
+        "campaign_name",
+        "start_date",
+        "end_date",
+        "company",
+        "target_audience",
+    ],
+    "handwritten": ["writer_name", "date", "content_summary"],
+    "scientific report": [
+        "report_title",
+        "authors",
+        "publication_date",
+        "summary",
+        "keywords",
+    ],
+    "budget": [
+        "budget_id",
+        "fiscal_year",
+        "total_amount",
+        "department",
+        "approval_date",
+    ],
+    "scientific publication": [
+        "title",
+        "authors",
+        "journal",
+        "publication_date",
+        "doi",
+    ],
+    "presentation": [
+        "presentation_title",
+        "presenter",
+        "date",
+        "event_name",
+        "slide_count",
+    ],
+    "file folder": [
+        "folder_name",
+        "creation_date",
+        "owner",
+        "number_of_documents",
+    ],
+    "memo": ["memo_id", "author", "recipient", "date", "subject"],
+    "resume": ["candidate_name", "email", "phone", "education", "skills"],
+    "invoice": ["invoice_number", "date", "total_amount", "vendor_name"],
+    "letter": ["sender", "recipient", "date", "subject", "signature"],
+    "questionnaire": [
+        "questionnaire_id",
+        "title",
+        "creation_date",
+        "number_of_questions",
+    ],
+    "form": ["form_id", "submission_date", "applicant_name", "purpose"],
+    "news article": [
+        "headline",
+        "author",
+        "publication_date",
+        "source",
+        "summary",
+    ],
+}
