@@ -1,0 +1,8 @@
+pytesseract
+pdf2image
+faiss-cpu
+sentence-transformers
+fastapi
+uvicorn
+python-multipart
+llama-cpp-python
