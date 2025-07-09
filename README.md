@@ -56,6 +56,11 @@ Sßee instructions: https://tesseract-ocr.github.io/tessdoc/Installation.html
 
 - Note: The first two files of each document type were used as testing files out of the indexing process
 
+---
+
+## 🔗 Download the model
+Download the `.gguf` model from [this link](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/tree/main).
+Then place it in the `models/` folder and add the model name to the `llm/text_extractor.py` file
 
 ---
 

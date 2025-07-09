@@ -86,6 +86,8 @@ venv.bak/
 
 # End of https://www.toptal.com/developers/gitignore/api/python
 
+.DS_Store
 *.zip
 
 data/raw/*
+models/*
