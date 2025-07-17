@@ -8,6 +8,10 @@ import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
 from ocr.text_extractor import extract_text
+import time
+from logger import get_logger
+
+logger = get_logger(__name__)
 
 # Disabling parallelism to skip warnings
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
@@ -33,6 +37,9 @@ class DocumentIndexer:
         output_path : str
             Path to save index and metadata (without extension).
         """
+        logger.info(f"Starting indexing for folder: {folder_path}")
+        start_time = time.time()
+
         embeddings = []
         current_id = 0
 
@@ -44,11 +51,13 @@ class DocumentIndexer:
                     (".pdf", ".png", ".jpg", ".jpeg")
                 ):
                     file_path = os.path.join(root, filename)
-                    print(f"Indexing {filename} (type: {doc_type}) ...")
+                    logger.info(f"Indexing {filename} (type: {doc_type}) ...")
 
                     text = extract_text(file_path)
                     if not text:
-                        print("Skipped: no text extracted")
+                        logger.warning(
+                            f"Skipped {filename}: no text extracted"
+                        )
                         continue
 
                     emb = self.model.encode(text)
@@ -61,7 +70,7 @@ class DocumentIndexer:
                     current_id += 1
 
         if not embeddings:
-            print("No documents indexed!")
+            logger.warning("No documents indexed!")
             return
 
         dim = len(embeddings[0])
@@ -76,7 +85,9 @@ class DocumentIndexer:
         with open(f"{output_path}_meta.pkl", "wb") as f:
             pickle.dump(self.id_to_metadata, f)
 
-        print(f"Indexed {len(embeddings)} documents.")
+        logger.info(f"Indexed {len(embeddings)} documents.")
+        elapsed = time.time() - start_time
+        logger.info(f"Indexing completed in {elapsed:.2f} seconds")
 
     def load_index(self, index_path: str, metadata_path: str):
         """

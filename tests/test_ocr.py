@@ -1,7 +1,9 @@
 """Test OCR function"""
 
 import os
+import difflib
 from ocr.text_extractor import extract_text
+from ocr.preprocessing import preprocess_image
 
 
 def test_ocr_on_sample_files(folder_path: str):
@@ -22,12 +24,18 @@ def test_ocr_on_sample_files(folder_path: str):
         ):
             print(f"\n=== Processing: {filename} ===")
 
-            text = extract_text(file_path)
+            # Extract text from original
+            original_text = extract_text(file_path) or ""
 
-            if text:
-                print(f"Extracted text (first 500 chars):\n{text[:500]}...")
-            else:
-                print("Failed to extract text or got empty result.")
+            # Extract text from preprocessed
+            preprocessed = preprocess_image(file_path)
+            processed_text = extract_text(preprocessed) or ""
+
+            print("---original")
+            print(original_text)
+
+            print("+++preprocessed")
+            print(processed_text)
 
 
 if __name__ == "__main__":

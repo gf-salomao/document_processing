@@ -50,18 +50,24 @@ pip install -r requirements.txt
 Sßee instructions: https://tesseract-ocr.github.io/tessdoc/Installation.html
 
 ---
+## 🔗 Setup
+- Use setup.sh for a fast and easy setup on a new project
 
-## 🧩 **Prepare dataset**
+### **Prepare dataset**
 - Dowloand the dataset using `dataset_download.sh`
 - Copy all files to `data/raw`
 
 - Note: The first two files of each document type were used as testing files out of the indexing process
 
+- Alternatively, you can run `setup.sh` to automatically download and extract the dataset.
+
 ---
 
-## 🔗 Download the model
+### Download the model
 Download the `.gguf` model from [this link](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/tree/main).
 Then place it in the `models/` folder and add the model name to the `llm/text_extractor.py` file
+
+- Alternatively, you can run `setup.sh` to automatically download the model into the models folder.
 
 ---
 

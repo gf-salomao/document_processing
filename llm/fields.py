@@ -1,4 +1,7 @@
-"""Field per Type dict for LLM Extraction"""
+"""Schema definitions per document type for LLM extraction.
+
+This dictionary maps each document type to its expected fields.
+"""
 
 fields_per_type = {
     "specification": [
@@ -70,3 +73,5 @@ fields_per_type = {
         "summary",
     ],
 }
+
+# Expected LLM output: each field paired with a value and confidence score.

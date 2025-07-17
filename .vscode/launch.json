@@ -39,6 +39,9 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true,
+            "env": {
+                "LLM_N_GPU_LAYERS": "40",
+            }
         },
         {
             "name": "Debug FastAPI (direct run)",
@@ -53,7 +56,10 @@
                 "8000",
                 "--reload"
             ],
-            "jinja": true
+            "jinja": true,
+            "env": {
+                "LLM_N_GPU_LAYERS": "40",
+            }
         },
         {
             "name": "Debug FastAPI (no reload)",
@@ -67,7 +73,10 @@
                 "--port",
                 "8000"
             ],
-            "jinja": true
+            "jinja": true,
+            "env": {
+                "LLM_N_GPU_LAYERS": "40"
+            }
         }
     ]
 }

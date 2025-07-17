@@ -12,6 +12,7 @@ from fastapi.responses import JSONResponse
 from llm.entities_extractor import extract_entities
 from vector_db.indexer import DocumentIndexer
 from ocr.text_extractor import extract_text
+from ocr.preprocessing import preprocess_image
 
 app = FastAPI(title="Document Understanding API")
 
@@ -39,9 +40,12 @@ async def extract_entities_endpoint(file: UploadFile = File(...)):
     with open(temp_path, "wb") as f:
         f.write(await file.read())
 
-    # Step 1: OCR
-    text = extract_text(temp_path)
+    # Step 1: Preprocessing
+    preprocessed_image = preprocess_image(temp_path)
     os.remove(temp_path)
+
+    # Step 2: OCR
+    text = extract_text(preprocessed_image)
 
     if not text:
         raise HTTPException(status_code=500, detail="Failed to extract text")
