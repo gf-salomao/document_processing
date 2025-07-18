@@ -88,7 +88,9 @@ venv.bak/
 
 .DS_Store
 *.zip
+*.log
 
+data/chromadb/*
 data/raw/*
 data/primary/*
 models/*

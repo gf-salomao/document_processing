@@ -1,10 +1,10 @@
+chromadb
 pytesseract
 pdf2image
-faiss-cpu
 sentence-transformers
 fastapi
 uvicorn
 python-multipart
 opencv-python
-openai
-# llama-cpp-python
+llama-cpp-python
+# faiss-cpu

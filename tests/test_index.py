@@ -5,8 +5,8 @@ from vector_db.indexer import DocumentIndexer
 
 def main():
     indexer = DocumentIndexer()
-    folder = "data/raw"
-    indexer.index_documents(folder, output_path="data/index/doc_type_index")
+    folder = "data/raw/email"
+    indexer.index_documents(folder)
 
     print("Done indexing!")
 

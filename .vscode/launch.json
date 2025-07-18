@@ -21,6 +21,9 @@
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}",
             "justMyCode": true,
+            "env": {
+                "LLM_N_GPU_LAYERS": "40",
+            }
         },
         {
             "name": "Index Search Test",

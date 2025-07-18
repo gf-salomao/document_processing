@@ -124,7 +124,7 @@ def extract_entities(text: str, document_type: str) -> dict:
     except json.JSONDecodeError as error:
         logger.error(
             "Failed to parse LLM response as JSON: %s\nError: %s",
-            generated_text[:100],
+            json_text,
             error,
         )
         entities = {"error": "Failed to parse LLM response as JSON"}

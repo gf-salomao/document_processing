@@ -2,10 +2,13 @@
 
 from typing import Optional
 import os
+import time
+import re
+
 import pytesseract
 from pdf2image import convert_from_path
-import time
 
+from ocr.preprocessing import preprocess_image
 from logger import get_logger
 
 logger = get_logger(__name__)
@@ -35,15 +38,21 @@ def extract_text(file_or_image) -> Optional[str]:
             if file_or_image.lower().endswith(".pdf"):
                 images = convert_from_path(file_or_image)
                 for img in images:
-                    text += pytesseract.image_to_string(img)
+                    processed = preprocess_image(img)
+                    text += pytesseract.image_to_string(processed)
             else:
-                text = pytesseract.image_to_string(file_or_image)
+                processed = preprocess_image(file_or_image)
+                text = pytesseract.image_to_string(processed)
         else:
             # Assume it's an OpenCV image (numpy array)
-            text = pytesseract.image_to_string(file_or_image)
+            processed = preprocess_image(file_or_image)
+            text = pytesseract.image_to_string(processed)
     except Exception as e:
         logger.exception(f"OCR extraction failed: {e}")
         return None
+
+    # Postprocessing: remove non-alphanumeric and basic punctuation
+    text = re.sub(r"[^\w\s.,;:\-!?@()/]", "", text)
 
     elapsed = time.time() - start_time
     logger.info(f"OCR extraction completed in {elapsed:.2f} seconds")
