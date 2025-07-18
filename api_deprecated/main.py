@@ -1,4 +1,4 @@
-"""FastAPI API Implementation"""
+"""Deprecated FastAPI API Implementation"""
 
 # api/main.py
 

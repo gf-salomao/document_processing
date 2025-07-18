@@ -47,39 +47,39 @@
             }
         },
         {
-            "name": "Debug FastAPI (direct run)",
+            "name": "Debug Django",
             "type": "debugpy",
             "request": "launch",
-            "module": "uvicorn",
+            "module": "django",
             "args": [
-                "api.main:app",
-                "--host",
-                "127.0.0.1",
-                "--port",
-                "8000",
-                "--reload"
+                "runserver",
+                "127.0.0.1:8000"
             ],
             "jinja": true,
             "env": {
-                "LLM_N_GPU_LAYERS": "40",
-            }
+                "DJANGO_SETTINGS_MODULE": "core.settings",
+                "LLM_N_GPU_LAYERS": "40"
+            },
+            "django": true,
+            "justMyCode": true
         },
         {
-            "name": "Debug FastAPI (no reload)",
+            "name": "Debug Django Command: process_documents",
             "type": "debugpy",
             "request": "launch",
-            "module": "uvicorn",
+            "module": "django",
             "args": [
-                "api.main:app",
-                "--host",
-                "127.0.0.1",
-                "--port",
-                "8000"
+                "process_documents",
+                "data/raw/email"
             ],
             "jinja": true,
+            "django": true,
+            "console": "integratedTerminal",
             "env": {
+                "DJANGO_SETTINGS_MODULE": "core.settings",
                 "LLM_N_GPU_LAYERS": "40"
-            }
+            },
+            "justMyCode": true
         }
     ]
 }
