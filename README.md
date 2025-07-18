@@ -1,13 +1,13 @@
 # 🧠 Intelligent Document Understanding API
 
-An end-to-end FastAPI application to extract structured information from unstructured documents using OCR, semantic search (vector DB), and local LLaMA models.
+An end-to-end Django application to extract structured information from unstructured documents using OCR, semantic search (ChromaDB), and local LLaMA models.
 
 ---
 
 ## 🚀 **Features**
 ✅ Upload scanned PDFs & images  
 ✅ OCR text extraction (Tesseract)  
-✅ Document type detection via FAISS & embeddings  
+✅ Document type detection via ChromaDB & embeddings  
 ✅ Entity extraction using local LLaMA model  
 ✅ Standardized JSON output:
 ```json
@@ -29,9 +29,10 @@ An end-to-end FastAPI application to extract structured information from unstruc
 ## ⚙️ **Project structure**
 ```plaintext
 .
-├── api/                # FastAPI application
+├── api/                # Django views and routes
+├── core/                # Django core
 ├── ocr/                # OCR module
-├── vector_db/          # FAISS index & semantic search
+├── vector_db/          # ChromaDB index & semantic search
 ├── llm/                # Entity extraction with LLaMA
 ├── data/               # Raw documents & indexes
 ├── tests/              # Unit & integration tests
@@ -71,32 +72,40 @@ Then place it in the `models/` folder and add the model name to the `llm/text_ex
 
 ---
 
-## 🧩 **Prepare vector index**
-
-Run indexing script (adjust folder to your dataset):
+## 🤖 **Run the Django API**
 ```bash
-python tests/test_index.py
+python manage.py runserver
 ```
 
----
-
-## 🤖 **Run the API**
-```bash
-uvicorn api.main:app --reload
+Test endpoint:
 ```
-
-Visit docs:
-```
-http://127.0.0.1:8000/docs
+http://127.0.0.1:8000/api/extract_entities/
 ```
 
 ---
 
 ## 📦 **Example cURL request**
 ```bash
-curl -X POST "http://127.0.0.1:8000/extract_entities/" \
+curl -X POST "http://127.0.0.1:8000/api/extract_entities/" \
   -F "file=@data/raw/invoices/invoice_001.pdf"
 ```
+
+---
+
+## 📂 **Batch Document Indexing**
+
+To process an entire dataset folder:
+
+```bash
+python manage.py process_documents data/raw/
+```
+
+This command will:
+- OCR each file
+- Detect document type
+- Extract entities
+- Store everything in ChromaDB
+- Log results to console and logs/app.log
 
 ---
 
@@ -109,7 +118,6 @@ curl -X POST "http://127.0.0.1:8000/extract_entities/" \
 ## 📍 **Future / Bonus ideas**
 - Docker File
 - Better models for Embbeding and LLM
-- Handle low-quality OCR with preprocessing
 - Add field-level confidence scores
 - Add web UI for testing
 - Add retry & fallback for JSON parsing
@@ -119,6 +127,29 @@ curl -X POST "http://127.0.0.1:8000/extract_entities/" \
 ## ✏ **Testing files**
 - Module testing files (development) are available on `tests` directory
 - If you're using VSCode feel free to use the tests implemented on `.vscode/launch.json`
+
+---
+
+## 🧱 Architecture Overview
+
+This project was designed with the goal of being a **100% free solution**, with no external paid APIs or keys required.
+
+### 🧠 LLM Choice: Local & Free
+To avoid unpredictable API costs (e.g., OpenAI, Azure), the pipeline uses local LLaMA models running on the user’s own machine. These models are smaller to ensure they work on personal devices, sacrificing some performance in exchange for accessibility and cost control.
+
+### 🖼️ OCR & Image Processing
+- **OCR Engine:** Tesseract
+- **Preprocessing:** OpenCV
+- **Text extraction model:** TinyLLaMA for entity recognition
+
+The image preprocessing step is intentionally gentle to avoid over-sanitizing images:
+- Tesseract relies on surrounding gray pixels as part of its inference features.
+- Over-filtering could remove small text, which is common in forms and receipts.
+
+Post-OCR, a simple postprocessing step removes non-meaningful characters and normalizes the output text.
+
+### 📁 Dataset
+The first two samples of each document type in the dataset were reserved for testing and excluded from the ChromaDB index.
 
 ---
 

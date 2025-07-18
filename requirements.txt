@@ -3,9 +3,6 @@ django
 pytesseract
 pdf2image
 sentence-transformers
-uvicorn
 python-multipart
 opencv-python
 llama-cpp-python
-# faiss-cpu
-# fastapi
